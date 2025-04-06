@@ -141,13 +141,13 @@ class ProductResource extends Resource
                                 Forms\Components\Section::make('Associations')
                                 ->schema([
                                    Forms\Components\Select::make('brand_id')
-                                   ->relationship('brand', 'name')
-                                   ->required(),
+                                        ->relationship('brand', 'name')
+                                        ->required(),
 
-
-                                    // Forms\Components\Select::make('categories')
-                                    // ->relationship('categories', 'name'),
-
+                                    Forms\Components\Select::make('categories')
+                                        ->relationship('categories', 'name')
+                                        ->multiple()
+                                        ->required(),
                                 ]),
                         ]),
 
@@ -204,7 +204,10 @@ class ProductResource extends Resource
                 ->native(false),
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
+                Tables\Actions\ActionGroup::make([
+                    Tables\Actions\EditAction::make(),
+                    Tables\Actions\DeleteAction::make(),
+                ])
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
@@ -217,6 +220,7 @@ class ProductResource extends Resource
     {
         return [
             //
+
         ];
     }
 
